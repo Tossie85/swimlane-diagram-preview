@@ -1,6 +1,15 @@
-.vscodeignore
-.gitignore
+# .vsix に含めないもの。
+# media/ は実行時アセット（アイコン・CSS・README の画像）と、
+# build/make-bundle.mjs（vscode:prepublish）が生成する swimlane.js なので含める。
+
+build/**
 test/**
 node_modules/**
 package-lock.json
+.vscode/**
+DEVELOPMENT.md
+PUBLISHING.md
+**/*.map
+.gitignore
+.vscodeignore
 *.vsix
