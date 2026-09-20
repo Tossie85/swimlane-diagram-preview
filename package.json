@@ -1,0 +1,41 @@
+{
+  "name": "swimlane-diagram-preview",
+  "displayName": "%extension.displayName%",
+  "description": "%extension.description%",
+  "version": "1.0.1",
+  "publisher": "tossie85",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "homepage": "https://tossie85.site/tools/swimlane-gui-studio.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tossie85/vscode-swimlane-preview.git"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "markdown",
+    "diagram",
+    "swimlane",
+    "preview",
+    "flowchart"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "markdown.markdownItPlugins": true,
+    "markdown.previewStyles": [
+      "./media/swimlane-preview.css"
+    ]
+  },
+  "scripts": {
+    "test": "node test/plugin.test.js"
+  },
+  "devDependencies": {
+    "markdown-it": "^14.1.0"
+  }
+}

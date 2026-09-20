@@ -1,0 +1,4 @@
+{
+  "extension.displayName": "Swimlane Diagram Preview",
+  "extension.description": "Render ```swimlane fenced code blocks as diagrams directly in VS Code's built-in Markdown preview."
+}

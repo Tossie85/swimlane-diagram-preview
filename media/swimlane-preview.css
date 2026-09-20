@@ -1,0 +1,20 @@
+.swimlane-diagram {
+  text-align: center;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+.swimlane-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+.swimlane-error {
+  display: block;
+  white-space: pre-wrap;
+  color: #c0392b;
+  background: rgba(192, 57, 43, 0.08);
+  border: 1px solid rgba(192, 57, 43, 0.35);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: var(--vscode-editor-font-family, Consolas, monospace);
+  font-size: var(--vscode-editor-font-size, 13px);
+}

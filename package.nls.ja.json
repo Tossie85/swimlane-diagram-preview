@@ -1,0 +1,4 @@
+{
+  "extension.displayName": "Swimlane Diagram Preview",
+  "extension.description": "VS Code の標準Markdownプレビューで ```swimlane フェンスコードブロックをその場でスイムレーン図として描画します。"
+}
