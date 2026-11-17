@@ -139,9 +139,21 @@ node <id> "<ラベル>" [lane=<laneId>] [phase=<phaseId>] [shape=<shape>] [color
 
 ## しくみ
 
-VS Codeの `markdown.markdownItPlugins` 拡張ポイントを使い、標準プレビューが使っている `markdown-it` の fence レンダラーを横取りしています。`swimlane` 言語のフェンスだけを [swimlane.js](https://tossie85.site/assets/swimlane.js)（外部依存ゼロの描画ライブラリ）でSVGに変換し、それ以外の言語は通常どおり（シンタックスハイライト等）に描画します。
+VS Codeの `markdown.markdownItPlugins` 拡張ポイントを使い、標準プレビューが使っている `markdown-it` の fence レンダラーを横取りしています。`swimlane` 言語のフェンスだけを [swimlane.js](https://github.com/Tossie85/swimlane-diagram)（外部依存ゼロの描画ライブラリ）でSVGに変換し、それ以外の言語は通常どおり（シンタックスハイライト等）に描画します。
 
 `swimlane.js` はDOMに依存せず解析・レイアウト計算・SVG生成ができる作りになっているため、Webview側で追加のスクリプトを実行する必要がなく、拡張機能ホスト（Node.js）側で同期的に変換しています。
+
+## 開発
+
+```
+npm ci
+npm test
+```
+
+ビルドが `vendor/swimlane.js` を `media/` へ同梱し、そのうえで5件のテストが
+`swimlane` フェンスだけを図にできているかを確かめます。
+描画エンジンの本家は [swimlane-diagram](https://github.com/Tossie85/swimlane-diagram) で、
+`vendor/` にあるのはその複製です。`media/swimlane.js` は生成物なので持ちません。
 
 ## ライセンス
 
@@ -290,9 +302,21 @@ Values accepted by `shape=`:
 
 ### How it works
 
-This extension uses VS Code's `markdown.markdownItPlugins` extension point to intercept the fence renderer of the `markdown-it` instance the built-in preview uses. Only fences with the `swimlane` language are converted to SVG via [swimlane.js](https://tossie85.site/assets/swimlane.js) (a zero-dependency rendering library); every other language is rendered as usual (syntax highlighting, etc.).
+This extension uses VS Code's `markdown.markdownItPlugins` extension point to intercept the fence renderer of the `markdown-it` instance the built-in preview uses. Only fences with the `swimlane` language are converted to SVG via [swimlane.js](https://github.com/Tossie85/swimlane-diagram) (a zero-dependency rendering library); every other language is rendered as usual (syntax highlighting, etc.).
 
 Because `swimlane.js` can parse, compute layout, and generate SVG without touching the DOM, there's no need to run extra scripts in the webview — the conversion happens synchronously on the extension host (Node.js) side.
+
+### Development
+
+```
+npm ci
+npm test
+```
+
+The build copies `vendor/swimlane.js` into `media/`, then five tests check that only
+`swimlane` fences are turned into diagrams. The engine itself lives in
+[swimlane-diagram](https://github.com/Tossie85/swimlane-diagram); `vendor/` holds a copy,
+and `media/swimlane.js` is generated, not committed.
 
 ### License
 
