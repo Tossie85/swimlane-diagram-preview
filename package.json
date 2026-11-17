@@ -9,11 +9,10 @@
   "homepage": "https://tossie85.site/tools/swimlane-gui-studio.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Tossie85/tossie85.site.git",
-    "directory": "vscode-extensions/swimlane-preview"
+    "url": "https://github.com/Tossie85/swimlane-diagram-preview.git"
   },
   "bugs": {
-    "url": "https://github.com/Tossie85/tossie85.site/issues"
+    "url": "https://github.com/Tossie85/swimlane-diagram-preview/issues"
   },
   "engines": {
     "vscode": "^1.75.0"
@@ -38,7 +37,7 @@
   },
   "scripts": {
     "build": "node build/make-bundle.mjs",
-    "test": "node build/make-bundle.mjs && node test/plugin.test.js && node test/port-rule.test.js && node test/header-fit.test.js",
+    "test": "node build/make-bundle.mjs && node test/plugin.test.js",
     "vscode:prepublish": "node build/make-bundle.mjs"
   },
   "devDependencies": {

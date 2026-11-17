@@ -1,4 +1,4 @@
 node_modules/
 *.vsix
-# ビルド生成物（assets/swimlane.js から build/make-bundle.mjs が取り直す）
+# ビルド生成物（vendor/swimlane.js から build/make-bundle.mjs が取り直す）
 media/swimlane.js

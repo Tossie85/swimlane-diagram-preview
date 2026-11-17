@@ -7,9 +7,8 @@ test/**
 node_modules/**
 package-lock.json
 .vscode/**
-.htaccess
-DEVELOPMENT.md
-PUBLISHING.md
+vendor/**
+.github/**
 **/*.map
 .gitignore
 .vscodeignore

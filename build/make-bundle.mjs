@@ -1,14 +1,14 @@
 /**
- * assets/swimlane.js を拡張へ同梱する（media/swimlane.js）。
+ * vendor/swimlane.js を拡張へ同梱する（media/swimlane.js）。
  *
- * この拡張の描画エンジンはサイト本体と同じ assets/swimlane.js で、手でコピーすると
- * 追従漏れが出る。ビルド時に必ず取り直すことで、拡張の中身をサイト側と一致させる。
+ * この拡張の描画エンジンは swimlane-diagram のもので、vendor/ にその複製を置いている。
+ * 手でコピーすると追従漏れが出るので、ビルド時に必ず取り直す。
  * media/swimlane.js は生成物なのでリポジトリには含めない（.gitignore）。
  *
  * extension.js は media/swimlane.js を Node の require で読むので、コピーしたものが
  * CommonJS として読めて render() を持つところまで確認する。読めなければ停止する。
  *
- * 実行: node vscode-extensions/swimlane-preview/build/make-bundle.mjs
+ * 実行: node build/make-bundle.mjs（npm run build）
  */
 import { copyFile, mkdir, stat } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -16,13 +16,12 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const repoRoot = resolve(here, '..', '..', '..');
-const SRC = resolve(repoRoot, 'assets', 'swimlane.js');
+const repoRoot = resolve(here, '..');
+const SRC = resolve(repoRoot, 'vendor', 'swimlane.js');
 const OUT_DIR = resolve(here, '..', 'media');
 const OUT = resolve(OUT_DIR, 'swimlane.js');
 
 if (!(await stat(SRC).catch(() => null))) {
-  // 単独コピーではビルドできない。リポジトリのルートごとチェックアウトして実行する。
   throw new Error(`[make-bundle] 元のライブラリが見つかりません: ${SRC}`);
 }
 
