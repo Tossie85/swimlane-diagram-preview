@@ -41,6 +41,6 @@
     "vscode:prepublish": "node build/make-bundle.mjs"
   },
   "devDependencies": {
-    "markdown-it": "^14.1.0"
+    "markdown-it": "^14.3.3"
   }
 }
