@@ -4,31 +4,49 @@
 
 VS Code の標準Markdownプレビューで、` ```swimlane ` フェンスコードブロックをその場でスイムレーン図（業務フロー図）として描画する拡張機能です。Mermaidのコードブロックが標準プレビューでそのまま図になるのと同じ感覚で使えます。
 
-![レンダリング例: 受注フロー](https://tossie85.site/assets/img/swimlane-preview/example-ja.png)
+![レンダリング例: 受注から入金までの流れ](docs/example-ja.png)
 
 上の図は、以下のようなコードブロックをMarkdownに書くだけで得られます。
 
 ```swimlane
 swimlane
-    title "受注フロー"
-    direction LR
+    title "受注から入金までの流れ"
+    direction TB
 
-    lane sales "営業部"
-    lane wh "倉庫"
+    lane sales "営業" #FFF1E0
+    lane back "業務" #E6EFFC
+    lane ware "倉庫" #E7F6EC
 
     phase p1 "受付"
     phase p2 "出荷"
+    phase p3 "請求"
 
-    node s1 "注文を受ける" lane=sales phase=p1 shape=start
-    node s2 "在庫を確認" lane=sales phase=p1 shape=decision
-    node w1 "出荷準備" lane=wh phase=p2
-    node w2 "発送完了" lane=wh phase=p2 shape=end
-    node s3 "欠品を連絡" lane=sales phase=p2 shape=end
+    node s "引合" lane=sales phase=p1 shape=startdot
+    node n1 "見積を出す" lane=sales phase=p1
+    node n2 "注文を受ける" lane=sales phase=p1 shape=io
+    node d1 "与信は足りるか" lane=back phase=p1 shape=decision
+    node n3 "条件を見直す" lane=sales phase=p1 color=#FFE0E0
+    node n4 "受注を登録する" lane=back phase=p2
+    node d2 "在庫はあるか" lane=ware phase=p2 shape=decision
+    node n5 "取り寄せる" lane=ware phase=p2 color=#FFF3D6
+    node n6 "出荷する" lane=ware phase=p2
+    node n7 "請求書を送る" lane=back phase=p3
+    node n8 "入金を確認する" lane=back phase=p3
+    node e "完了" lane=back phase=p3 shape=enddot
 
-    s1 -> s2
-    s2 -> w1 "在庫あり"
-    s2 -> s3 "欠品"
-    w1 -> w2
+    s -> n1
+    n1 -> n2
+    n2 -> d1 "審査を依頼"
+    d1 -> n4 "OK"
+    d1 -> n3 "NG"
+    n3 -> n2 "再見積"
+    n4 -> d2 "出荷を指示"
+    d2 -> n6 "あり"
+    d2 -> n5 "なし"
+    n5 -> n6 "入荷後"
+    n6 --> n7 "出荷を通知"
+    n7 -> n8
+    n8 -> e
 ```
 
 ## 使い方
@@ -167,31 +185,49 @@ MIT License. 外部通信は一切行いません。
 
 A VS Code extension that renders ` ```swimlane ` fenced code blocks as swimlane diagrams directly inside the built-in Markdown preview — the same feeling as Mermaid code blocks turning into diagrams in the standard preview.
 
-![Rendered example: order flow](https://tossie85.site/assets/img/swimlane-preview/example-en.png)
+![Rendered example: from order to payment](docs/example-en.png)
 
 The diagram above is produced from a code block like this:
 
 ```swimlane
 swimlane
-    title "Order Flow"
-    direction LR
+    title "From order to payment"
+    direction TB
 
-    lane sales "Sales"
-    lane wh "Warehouse"
+    lane sales "Sales" #FFF1E0
+    lane back "Back office" #E6EFFC
+    lane ware "Warehouse" #E7F6EC
 
     phase p1 "Intake"
     phase p2 "Fulfillment"
+    phase p3 "Billing"
 
-    node s1 "Receive order" lane=sales phase=p1 shape=start
-    node s2 "Check stock" lane=sales phase=p1 shape=decision
-    node w1 "Prepare shipment" lane=wh phase=p2
-    node w2 "Shipped" lane=wh phase=p2 shape=end
-    node s3 "Notify shortage" lane=sales phase=p2 shape=end
+    node s "Inquiry" lane=sales phase=p1 shape=startdot
+    node n1 "Send a quote" lane=sales phase=p1
+    node n2 "Take the order" lane=sales phase=p1 shape=io
+    node d1 "Credit approved?" lane=back phase=p1 shape=decision
+    node n3 "Revise the terms" lane=sales phase=p1 color=#FFE0E0
+    node n4 "Register the order" lane=back phase=p2
+    node d2 "In stock?" lane=ware phase=p2 shape=decision
+    node n5 "Order from supplier" lane=ware phase=p2 color=#FFF3D6
+    node n6 "Ship it" lane=ware phase=p2
+    node n7 "Send the invoice" lane=back phase=p3
+    node n8 "Confirm payment" lane=back phase=p3
+    node e "Done" lane=back phase=p3 shape=enddot
 
-    s1 -> s2
-    s2 -> w1 "In stock"
-    s2 -> s3 "Out of stock"
-    w1 -> w2
+    s -> n1
+    n1 -> n2
+    n2 -> d1 "Ask for review"
+    d1 -> n4 "OK"
+    d1 -> n3 "NG"
+    n3 -> n2 "Re-quote"
+    n4 -> d2 "Request shipment"
+    d2 -> n6 "Yes"
+    d2 -> n5 "No"
+    n5 -> n6 "On arrival"
+    n6 --> n7 "Shipment notice"
+    n7 -> n8
+    n8 -> e
 ```
 
 ### Usage

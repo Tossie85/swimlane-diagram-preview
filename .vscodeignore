@@ -1,9 +1,12 @@
 # .vsix に含めないもの。
-# media/ は実行時アセット（アイコン・CSS・README の画像）と、
+# media/ は実行時アセット（アイコン・CSS）と、
 # build/make-bundle.mjs（vscode:prepublish）が生成する swimlane.js なので含める。
+# docs/ は README の図。vsce が相対リンクを GitHub の URL に書き換えるので、
+# .vsix に入れる必要はない。
 
 build/**
 test/**
+docs/**
 node_modules/**
 package-lock.json
 .vscode/**
